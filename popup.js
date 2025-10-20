@@ -265,3 +265,7 @@ async function exportCSV() {
   
   console.log("Popup initialized");
 })();
+
+document.getElementById("analytics-btn").addEventListener("click", () => {
+  chrome.tabs.create({ url: chrome.runtime.getURL("analytics.html") });
+});

@@ -1,71 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Analytics Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <title>LetsTrackIt - Analytics</title>
+  <link rel="icon" href="icons/icon48.png">
+  <script src="chart.js"></script>
+  <script src="db.js"></script>
+  <script src="analytics.js" defer></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1, h2 {
-      margin-bottom: 10px;
-    }
-    canvas {
-      max-width: 800px;
-      margin-top: 20px;
-    }
-    table {
-      border-collapse: collapse;
-      margin-top: 30px;
-      width: 90%;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-    #exportBtn {
-      margin-top: 20px;
-      padding: 8px 16px;
-      font-size: 14px;
-      cursor: pointer;
-    }
+    body { font-family: Arial; margin: 20px; background: #f8f9fa; }
+    h1, h2 { text-align: center; }
+    .tabs { text-align: center; margin: 20px; }
+    .tabs button { margin: 0 5px; padding: 8px 16px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px; }
+    .tabs button.active { background: #36a2eb; color: #fff; }
+    .section { display: none; }
+    .section.active { display: block; }
+    .chart-container { width: 90%; max-width: 700px; margin: 30px auto; }
+    table { width: 90%; margin: 30px auto; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #eee; }
   </style>
 </head>
 <body>
-  <h1>Analytics Dashboard</h1>
+  <h1>LetsTrackIt Analytics</h1>
 
-  <!-- Chart for session durations -->
-  <canvas id="durationChart"></canvas>
+  <!-- Tabs -->
+  <div class="tabs">
+    <button data-tab="summary" class="active">📊 Summary</button>
+    <button data-tab="trends">📈 Trends</button>
+    <button data-tab="tasks">📝 Task Details</button>
+  </div>
 
-  <!-- Raw data table -->
-  <h2>Session Data</h2>
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Task Name</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Duration (s)</th>
-        <th>Session Type</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <!-- Summary Section -->
+  <div id="summary" class="section active">
+    <h2>Hours per Task</h2>
+    <div class="chart-container"><canvas id="taskChart"></canvas></div>
 
-  <!-- Export CSV button -->
-  <button id="exportBtn">Export CSV</button>
+    <h2>Work vs Break</h2>
+    <div class="chart-container"><canvas id="typeChart"></canvas></div>
 
-  <!-- Analytics script -->
-  <script src="analytics.js"></script>
+    <h2>Session Data</h2>
+    <table id="sessionTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Task</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Duration (s)</th>
+          <th>Session Type</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Trends Section -->
+  <div id="trends" class="section">
+    <h2>Session Duration Over Time</h2>
+    <div class="chart-container"><canvas id="timelineChart"></canvas></div>
+  </div>
+
+  <!-- Task Details Section -->
+  <div id="tasks" class="section">
+    <h2>Time Spent per Task</h2>
+    <div class="chart-container"><canvas id="taskPieChart"></canvas></div>
+
+    <h2>Task Stats</h2>
+    <table id="taskStatsTable">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Total Duration (s)</th>
+          <th>Average Duration (s)</th>
+          <th>Sessions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </body>
 </html>
