@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>LetsTrackIt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="icons/icon48.png" alt="logo" class="logo" />
+        <h1>LetsTrackIt</h1>
+      </header>
+      
+      <label for="taskName" class="label">What are you working on?</label>
+      <input 
+        id="taskName" 
+        class="input" 
+        type="text" 
+        placeholder="e.g., Project planning, Deep work, Reading, Research..." 
+        maxlength="50"
+      />
+      
+      <div class="timer-row">
+        <div id="timerDisplay" class="timer">00:00:00</div>
+      </div>
+      
+      <div class="controls">
+        <button id="startBtn" class="btn primary" title="Start work session">
+          Start Work
+        </button>
+        <button id="breakBtn" class="btn warning" title="Start break">
+          Start Break
+        </button>
+        <button id="pauseBtn" class="btn" title="Pause/Resume" disabled>
+          Pause
+        </button>
+        <button id="stopBtn" class="btn danger" title="Stop and save session" disabled>
+          Stop & Save
+        </button>
+      </div>
+      
+      <div class="summary-row">
+        <button id="summaryBtn" class="link" title="View statistics">
+          📋 View Summary
+        </button>
+        <button id="exportBtn" class="link" title="Export data as CSV">
+          📥 Export CSV
+        </button>
+      </div>
+      
+      <div id="message" class="message"></div>
+
+      <div class="analytics-row">
+        <button id="analyticsBtn" class="link" title="View analytics" onclick="window.open('analytics.html', '_blank')">
+          📊  View Analytics (Coming Soon)
+        </button>
+      </div>
+
+    </div>
+    <script src="db.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
